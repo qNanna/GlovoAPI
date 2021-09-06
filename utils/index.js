@@ -1,4 +1,9 @@
 import fs from 'fs/promises';
+import crypto from 'crypto';
+
+function getHash(data, encoding = 'base64', encryption = 'sha256') {
+  return crypto.createHash(encryption).update(JSON.stringify(data)).digest(encoding);
+}
 
 async function readFile(path) {
   try {
@@ -9,4 +14,7 @@ async function readFile(path) {
   }
 }
 
-export default readFile;
+export default {
+  readFile,
+  getHash,
+};

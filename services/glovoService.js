@@ -21,16 +21,21 @@ class GlovoService {
     return request.json();
   }
 
-  buildData(data, description = 'A 30cm by 30cm box', label = 'Empty') {
+  getDiscount({ total }) {
+    const discount = total.amount - (total.amount / 100) * config.discount;
+    return { total: { ...total, amount: discount } };
+  }
+
+  buildData({ from, to }, description = 'A 30cm by 30cm box', label = 'Empty') {
     return {
       scheduleTime: null,
       description,
       addresses: [
         {
-          type: 'PICKUP', lat: data.from.lat, lon: data.from.lon, label,
+          type: 'PICKUP', lat: from.lat, lon: from.lon, label,
         },
         {
-          type: 'DELIVERY', lat: data.to.lat, lon: data.to.lon, label,
+          type: 'DELIVERY', lat: to.lat, lon: to.lon, label,
         },
       ],
     };
