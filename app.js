@@ -11,4 +11,4 @@ app.use(express.json());
 
 app.use('/api', api);
 
-app.listen(config.port, config.host, () => console.info(chalk.green(`Microservice has started on ${config.host}:${config.port}`)));
+app.listen(config.port, () => console.info(chalk.green(`Microservice has started on port ${config.port}`)));
