@@ -12,8 +12,9 @@ class RedisClient {
 
   async init() {
     const vanillaRedis = redis.createClient();
+    const { host, port } = vanillaRedis.connection_options;
     this.redis = asyncRedis.decorate(vanillaRedis);
-    this.redis.on('connect', () => console.info(chalk.blue('Redis client connected on', vanillaRedis.address)));
+    this.redis.on('connect', () => console.info(chalk.blue(`Redis client connected on ${host}:${port}`)));
     this.redis.on('error', (err) => console.error(chalk.red('Something went wrong ', err)));
 
     process.on('exit', this.closeRedis);
